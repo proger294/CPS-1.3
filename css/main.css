@@ -1,0 +1,540 @@
+@charset "UTF-8";
+/**
+  Нормализация блочной модели
+ */
+*,
+::before,
+::after {
+  box-sizing: border-box;
+}
+
+/**
+  Убираем внутренние отступы слева тегам списков,
+  у которых есть атрибут class
+ */
+:where(ul, ol):where([class]) {
+  padding-left: 0;
+}
+
+/**
+  Убираем внешние отступы body и двум другим тегам,
+  у которых есть атрибут class
+ */
+body,
+:where(blockquote, figure):where([class]) {
+  margin: 0;
+}
+
+/**
+  Убираем внешние отступы вертикали нужным тегам,
+  у которых есть атрибут class
+ */
+:where(h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+ul,
+ol,
+dl):where([class]) {
+  margin-block: 0;
+}
+
+:where(dd[class]) {
+  margin-left: 0;
+}
+
+:where(fieldset[class]) {
+  margin-left: 0;
+  padding: 0;
+  border: none;
+}
+
+/**
+  Убираем стандартный маркер маркированному списку,
+  у которого есть атрибут class
+ */
+:where(ul[class]) {
+  list-style: none;
+}
+
+:where(address[class]) {
+  font-style: normal;
+}
+
+/**
+  Обнуляем вертикальные внешние отступы параграфа,
+  объявляем локальную переменную для внешнего отступа вниз,
+  чтобы избежать взаимодействие с более сложным селектором
+ */
+p {
+  --paragraphMarginBottom: 24px;
+  margin-block: 0;
+}
+
+/**
+  Внешний отступ вниз для параграфа без атрибута class,
+  который расположен не последним среди своих соседних элементов
+ */
+p:where(:not([class]):not(:last-child)) {
+  margin-bottom: var(--paragraphMarginBottom);
+}
+
+/**
+  Упрощаем работу с изображениями
+ */
+img {
+  display: block;
+  max-width: 100%;
+}
+
+/**
+  Наследуем свойства шрифт для полей ввода
+ */
+input,
+textarea,
+select,
+button {
+  font: inherit;
+}
+
+html {
+  /**
+    Пригодится в большинстве ситуаций
+    (когда, например, нужно будет "прижать" футер к низу сайта)
+   */
+  height: 100%;
+}
+
+/**
+  Плавный скролл
+ */
+html,
+:has(:target) {
+  scroll-behavior: smooth;
+}
+
+body {
+  /**
+    Пригодится в большинстве ситуаций
+    (когда, например, нужно будет "прижать" футер к низу сайта)
+   */
+  min-height: 100%;
+  /**
+    Унифицированный интерлиньяж
+   */
+  line-height: 1.5;
+}
+
+/**
+  Приводим к единому цвету svg-элементы
+ */
+svg *[fill] {
+  fill: currentColor;
+}
+
+svg *[stroke] {
+  stroke: currentColor;
+}
+
+/**
+  Чиним баг задержки смены цвета при взаимодействии с svg-элементами
+ */
+svg * {
+  transition-property: fill, stroke;
+}
+
+/**
+  Удаляем все анимации и переходы для людей,
+  которые предпочитают их не использовать
+ */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  ::before,
+  ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+@font-face {
+  font-family: "TT Lakes Regular";
+  font-weight: 400;
+  font-style: normal;
+  src: url(../fonts/TTLakes-Regular.woff2) format(woff2), url(../fonts/TTLakes-Regular.woff) format(woff);
+}
+@font-face {
+  font-family: "TT Lakes Medium";
+  font-weight: 500;
+  font-style: normal;
+  src: url(../fonts/TTLakes-Medium.woff2) format(woff2), url(../fonts/TTLakes-Medium.woff) format(woff);
+}
+@font-face {
+  font-family: "TT Lakes Bold";
+  font-weight: 700;
+  font-style: normal;
+  src: url(../fonts/TTLakes-Bold.woff2) format(woff2), url(../fonts/TTLakes-Bold.woff) format(woff);
+}
+@font-face {
+  font-family: "TT Lakes Condensed Medium";
+  font-weight: 500;
+  font-style: normal;
+  src: url(../fonts/TTLakesCondensed-Medium.woff2) format(woff2), url(../fonts/TTLakesCondensed-Medium.woff) format(woff);
+}
+.header {
+  font-size: 16px;
+  font-family: "TT Lakes Medium";
+  font-weight: 500;
+  font-style: normal;
+}
+.header__inner {
+  padding: 18px 0;
+  min-height: 88px;
+}
+
+@media (min-width: 1120px) {
+  .header {
+    display: none;
+  }
+}
+.container {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
+@media (min-width: 768px) {
+  .container {
+    padding: 0 24px;
+  }
+}
+@media (min-width: 1120px) {
+  .container {
+    padding: 0 32px;
+  }
+}
+.buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.navigation {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.connection {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.repair {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.connection__btn-chat {
+  padding-top: 10px;
+}
+
+.logo {
+  width: 96px;
+  height: 50px;
+}
+
+.btn-circle {
+  width: 40px;
+  height: 40px;
+  background-color: #FF3E79;
+  border: none;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.3s;
+  cursor: pointer;
+}
+@media (hover: hover) {
+  .btn-circle:hover {
+    background-color: #41F6D7;
+  }
+  .btn-circle:hover .navigation__img {
+    transition: 0.3s;
+    filter: invert(1);
+  }
+}
+@media (hover: none) {
+  .btn-circle:active {
+    background-color: #41F6D7;
+  }
+  .btn-circle:active .navigation__img {
+    transition: 0.3s;
+    filter: invert(1);
+  }
+}
+
+@media (min-width: 320px) {
+  .navigation__btn-close {
+    display: none;
+  }
+  .navigation__btn-search {
+    display: none;
+  }
+  .repair__text {
+    display: none;
+  }
+  .connection {
+    display: none;
+  }
+  .logo {
+    position: relative;
+  }
+  .logo::after {
+    content: url(../img/psevdo-el-1.svg);
+    position: absolute;
+    margin-left: 113px;
+    margin-top: -39px;
+  }
+}
+@media (min-width: 768px) {
+  .logo::after {
+    display: none;
+  }
+  .connection {
+    display: flex;
+  }
+  .navigation {
+    gap: 42px;
+  }
+  .logo {
+    position: relative;
+  }
+  .logo::before {
+    content: url(../img/psevdo-el-1.svg);
+    position: absolute;
+    margin-left: -21px;
+    margin-top: 10px;
+  }
+  .buttons__connection {
+    margin-left: 202px;
+  }
+  .buttons__connection::after {
+    content: url(../img/psevdo-el-1.svg);
+    position: absolute;
+    margin-left: 174px;
+    margin-top: 10px;
+  }
+}
+.header-desctop {
+  font-size: 16px;
+  font-family: "TT Lakes Medium";
+  font-weight: 500;
+  font-style: normal;
+  background-color: #F8F8F8;
+}
+.header-desctop__inner {
+  display: flex;
+  justify-content: space-between;
+}
+
+.title {
+  width: 304px;
+  height: 40px;
+  font-size: 28px;
+  font-family: "TT Lakes Bold";
+  font-weight: 700;
+  font-style: normal;
+  position: relative;
+  line-height: 143%;
+  letter-spacing: -0.02em;
+}
+.title::before {
+  content: url(../img/psevdo-el-2.svg);
+  position: absolute;
+  margin-left: -30px;
+  margin-top: 8px;
+}
+
+@media (min-width: 320px) {
+  .repair--hidden-xs {
+    display: none;
+  }
+  .header-desctop {
+    padding-top: 24px;
+    padding-bottom: 24px;
+  }
+  .title::before {
+    content: url(../img/psevdo-el-2.svg);
+    position: absolute;
+    margin-left: -15px;
+    margin-top: 8px;
+  }
+}
+@media (min-width: 768px) {
+  .repair--hidden-xs {
+    display: none;
+  }
+  .header-desctop {
+    padding-top: 28px;
+    padding-bottom: 28px;
+  }
+  .title::before {
+    content: url(../img/psevdo-el-2.svg);
+    position: absolute;
+    margin-left: -23px;
+    margin-top: 8px;
+  }
+}
+@media (min-width: 1120px) {
+  .header-desctop {
+    display: block;
+    padding-top: 42px;
+    padding-bottom: 9px;
+  }
+  .repair {
+    display: flex;
+  }
+  .repair__wrap-text {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .repair__text {
+    display: inline-block;
+  }
+}
+.top-menu {
+  overflow-x: auto;
+  background-color: #F8F8F8;
+}
+.top-menu::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+.top-menu__inner {
+  font-family: "TT Lakes Medium";
+  font-size: 16px;
+  color: #7E7E82;
+}
+.top-menu__title {
+  display: none;
+}
+
+.list-top {
+  display: flex;
+}
+.list-top__item {
+  padding: 8px 21px;
+  border-radius: 6px;
+}
+.list-top__item--active {
+  border: 2px solid #B8FFEC;
+  background-color: #FFFFFF;
+}
+.list-top__link {
+  white-space: nowrap;
+}
+
+@media (min-width: 1120px) {
+  .top-menu__title {
+    display: block;
+    padding-top: 14px;
+  }
+}
+.sub-title {
+  font-family: "TT Lakes Medium";
+  font-weight: 500;
+  font-style: normal;
+  font-size: 16px;
+  color: #7E7E82;
+}
+
+.info {
+  font-size: 15px;
+  font-family: "TT Lakes Regular";
+  background-color: #F8F8F8;
+}
+.info__inner {
+  padding-top: 24px;
+}
+.info__paragraph-two--hidden-xs {
+  display: none;
+}
+.info__btn-read-more {
+  border: none;
+  background-color: transparent;
+  font-size: 16px;
+  font-family: "TT Lakes Medium";
+  padding: 16px 25px;
+  position: relative;
+  cursor: pointer;
+}
+.info__btn-read-more::before {
+  content: url(../img/double-strelka.svg);
+  position: absolute;
+  left: 5px;
+}
+.info__image {
+  width: 320px;
+  height: 176px;
+  position: absolute;
+  left: 0;
+}
+
+@media (min-width: 768px) {
+  .info__paragraph-one {
+    padding-bottom: 25px;
+  }
+  .info__inner {
+    padding-top: 32px;
+  }
+  .info__paragraph-two--hidden-xs {
+    display: block;
+  }
+  .info__text--hidden-sm {
+    display: none;
+  }
+  .info__inner {
+    display: flex;
+    justify-content: space-between;
+    gap: 48px;
+  }
+  .info__image {
+    width: 360px;
+    height: 208px;
+    position: static;
+  }
+}
+@media (min-width: 1120px) {
+  .info__text {
+    display: inline;
+  }
+  .info__text--hidden-sm {
+    display: block;
+  }
+  .info__inner {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 20px;
+    gap: 36px;
+  }
+  .info__image {
+    width: 531px;
+    height: 307px;
+    position: static;
+  }
+  .info__text--hidden-sm {
+    display: inline;
+  }
+}/*# sourceMappingURL=main.css.map */
