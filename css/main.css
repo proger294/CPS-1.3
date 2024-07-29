@@ -269,7 +269,7 @@ a {
   .btn-circle:hover {
     background-color: #41F6D7;
   }
-  .btn-circle:hover .navigation__img {
+  .btn-circle:hover img {
     transition: 0.3s;
     filter: invert(1);
   }
@@ -278,7 +278,7 @@ a {
   .btn-circle:active {
     background-color: #41F6D7;
   }
-  .btn-circle:active .navigation__img {
+  .btn-circle:active img {
     transition: 0.3s;
     filter: invert(1);
   }

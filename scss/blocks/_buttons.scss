@@ -44,7 +44,7 @@
   @media (hover: hover) {
     &:hover {
       background-color: $sub-color;
-      .navigation__img {
+      img {
         transition: 0.3s;
         filter: invert(1);
       }
@@ -54,7 +54,7 @@
   @media (hover: none) {
     &:active {
       background-color: $sub-color;
-      .navigation__img {
+      img {
         transition: 0.3s;
         filter: invert(1);
       }
